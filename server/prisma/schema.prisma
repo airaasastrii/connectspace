@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(100)
+  email     String    @unique @db.VarChar(150)
+  password  String    @db.VarChar(255) // hash bcrypt
+  avatar    String?   @db.VarChar(255) // path file / URL
+  bio       String?   @db.Text
+  createdAt DateTime  @default(now()) @db.Timestamp(0) @map("created_at")
+  posts     Post[]
+  likes     Like[]
+  comments  Comment[]
+
+  @@map("users")
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  userId    Int       @map("user_id")
+  content   String?   @db.Text
+  image     String?   @db.VarChar(255)
+  createdAt DateTime  @default(now()) @db.Timestamp(0) @map("created_at")
+  updatedAt DateTime? @updatedAt @db.Timestamp(0) @map("updated_at")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes     Like[]
+  comments  Comment[]
+
+  @@index([createdAt])
+  @@index([userId])
+  @@map("posts")
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  postId    Int      @map("post_id")
+  createdAt DateTime @default(now()) @db.Timestamp(0) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId]) // 1 user = 1 like per post
+  @@index([postId])
+  @@map("likes")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  postId    Int      @map("post_id")
+  userId    Int      @map("user_id")
+  comment   String?  @db.Text
+  image     String?  @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamp(0) @map("created_at")
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([userId])
+  @@map("comments")
+}

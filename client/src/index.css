@@ -1,0 +1,794 @@
+:root {
+  --bg: #feecef;
+  /* background */
+  --surface: #ffeeee;
+  /* untuk yang di kolom dalem nya itu */
+  --ink: #310505d2;
+  /* untuk tombol unggah dan teks username */
+  --muted: #331b1e;
+  /* untuk warna teks tanggal bulan tahun dll */
+  --line: #360410;
+  /* garis dari isian konten nya */
+  --accent: #d37181;
+  /* botton (tombol) posting yg awal */
+  --accent-dark: #e6d53d;
+  /* tombol posting yg kalo di arahin */
+  --like: #d6405a;
+  /* warna icon like */
+  --danger: #b3261e;
+  /*  */
+  --radius: 10px;
+  /*  */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding-top: 0; /* Pastikan tidak ada jarak di atas body */
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.55 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+h1,
+h2 {
+  margin: 0 0 .5rem;
+  letter-spacing: -.02em;
+}
+
+a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.brand-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    display: block;
+}
+
+/* LOGO CONNECTSPACE DI HALAMAN LOGIN */
+.auth-side img {
+    width: 150px;
+    max-width: 70%;
+    height: auto;
+    max-height: 180px;
+    object-fit: contain;
+    display: block;
+    margin: 0 0 2rem 0;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: .875rem;
+}
+
+.center {
+  text-align: center;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  font: inherit;
+  color: inherit;
+  padding: .6rem .75rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f5c9c9;
+  /* bagian kolom nya, komentar atau pas input email */
+}
+
+input:focus-visible,
+textarea:focus-visible,
+.btn:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+label,
+.label {
+  display: grid;
+  gap: .3rem;
+  font-weight: 600;
+  font-size: .875rem;
+}
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: .6rem 1.1rem;
+  cursor: pointer;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+}
+
+.btn-icon svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.btn:hover {
+  background: var(--accent-dark);
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  padding: .4rem .7rem;
+}
+
+.btn-ghost:hover {
+  background: #ffc4d8;
+}
+
+.danger {
+  color: var(--danger);
+}
+
+.danger:hover {
+  background: #ffc4d8;
+}
+
+.alert {
+  padding: .6rem .8rem;
+  border-radius: 8px;
+  font-size: .875rem;
+  border: 1px solid;
+}
+
+.alert.error {
+  background: #fdeceb;
+  border-color: #f2b8b5;
+  color: #8c1d18;
+}
+
+.alert.warn {
+  background: #fff4d6;
+  border-color: #ecd27a;
+  color: #6b4e00;
+}
+
+.alert.ok {
+  background: #e3f4ea;
+  border-color: #a6d8b9;
+  color: #14532d;
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: .8125rem;
+  margin: .25rem 0 0;
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 8px; /* Memberikan jarak di bawah foto profil */
+}
+
+/* ATUR UKURAN FOTO PROFIL DI SINI */
+.profile-container {
+  display: flex;
+  flex-direction: column; /* Membuat isi ke bawah (foto di atas, teks di bawahnya) */
+  align-items: center;    /* Mengatur posisi ke tengah secara horizontal */
+  justify-content: center;
+  margin-bottom: 20px;    /* Memberi jarak dengan card form di bawahnya */
+  text-align: center;
+}
+
+.profile-avatar-wrapper img {
+  width: 120px;          /* Lebar foto profil */
+  height: 120px;         /* Tinggi foto profil (harus sama dengan width biar bulat sempurna) */
+  object-fit: cover;     /* Supaya foto tidak gepeng */
+  border-radius: 50%;    /* Membuat foto jadi bentuk lingkaran */
+  transition: transform 0.2s;
+  border: 3px solid #fff; /* Tambahan border putih biar makin estetik */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-avatar-wrapper:hover img {
+  transform: scale(1.03); /* Sedikit membesar saat di-hover */
+}
+
+/* Latar belakang gelap (Overlay) saat modal terbuka */
+.image-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.image-modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+/* Ini untuk ukuran pas di-zoom (modal), biarkan tetap besar dan proporsional */
+.modal-zoomed-img {
+  max-width: 400px;      /* Batasi lebar maksimal saat di-zoom */
+  max-height: 400px;     /* Batasi tinggi maksimal saat di-zoom */
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 50%;    /* Kalau mau pas di-zoom tetap bulat (atau hapus baris ini kalau mau kotak biasa) */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 2.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-close-btn:hover {
+  color: #ef4444;
+}
+
+/* --- NAVBAR STYLING --- */
+.navbar {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #ec6280ce;
+}
+
+.navbar-inner { 
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  width: 100%;
+  padding: 0.75rem 2rem;
+  box-sizing: border-box;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.25rem;
+    text-decoration: none;
+}
+
+.navbar-left-group {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem; 
+}
+
+/* untuk bagian warna teks PROFIL */
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+/* untuk bagian warna teks BERANDA */
+.nav-links a.active {
+  color: #fff;
+  background: rgba(94, 19, 19, 0.397); 
+  /* background untuk luar-annya*/
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #ffffff;
+}
+
+/* Styling untuk tombol icon keluar (logout) agar berwarna putih */
+.logout-btn {
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.logout-btn svg {
+  stroke: #ffffff; /* Memastikan warna garis icon-nya putih */
+}
+
+.logout-btn:hover svg {
+  stroke: #e6d53d; /* Berubah jadi warna lain saat di-hover */
+}
+
+.nav-name {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: .875rem;
+}
+
+@media (max-width: 520px) {
+  .nav-name {
+    display: none;
+  }
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  background: #cfe3e5;
+}
+
+.avatar-fallback {
+  display: inline-grid;
+  place-items: center;
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
+.auth-wrap {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.auth-side {
+  background: var(--ink);
+  color: #fff;
+  display: grid;
+  align-content: center;
+  padding: 3rem;
+}
+
+.auth-side h1 {
+  font-size: 2.6rem;
+  font-weight: 800;
+}
+
+.auth-side p {
+  color: #b9c6da;
+  max-width: 28ch;
+  font-size: 1.05rem;
+}
+
+.auth-card {
+  align-self: center;
+  justify-self: center;
+  width: min(400px, 92%);
+  display: grid;
+  gap: .9rem;
+}
+
+.login-layout {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+
+.login-panel {
+  width: min(400px, 100%);
+  display: grid;
+  gap: 1.25rem;
+}
+
+.login-brand {
+  display: grid;
+  justify-items: center;
+  gap: .25rem;
+  text-align: center;
+}
+
+.login-brand .auth-logo {
+  width: 110px;
+  height: 110px;
+  max-width: 70%;
+  object-fit: contain;
+}
+
+.login-brand h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.login-panel .auth-card {
+  width: 100%;
+}
+
+@media (max-width: 760px) {
+  .auth-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-side {
+    padding: 1.5rem;
+  }
+
+  .auth-side h1 {
+    font-size: 1.8rem;
+  }
+
+  .auth-card {
+    margin: 1.25rem 0;
+  }
+}
+
+.form {
+  display: grid;
+  gap: .9rem;
+}
+
+.composer {
+  display: grid;
+  gap: .8rem;
+}
+
+.post-edit-form {
+  display: grid;
+  gap: .8rem;
+}
+
+.row {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+}
+
+.row.top {
+  align-items: flex-start;
+}
+
+.image-input {
+  /* untuk input gambar */
+  display: grid;
+  gap: .10rem;
+}
+
+.image-input-head {
+  /* untuk judul input gambar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.seg button {
+  font: inherit;
+  font-size: .8125rem;
+  border: 0;
+  background: #fff;
+  padding: .25rem .7rem;
+  cursor: pointer;
+}
+
+.seg button.on {
+  background: var(--ink);
+  color: #fff;
+}
+
+.preview {
+  max-height: 180px;
+  max-width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  justify-self: start;
+}
+
+.post {
+  display: grid;
+  gap: .75rem;
+}
+
+.post-head {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+
+.post-meta {
+  flex: 1;
+  display: grid;
+  line-height: 1.3;
+}
+
+time {
+  color: var(--muted);
+  font-size: .78rem;
+}
+
+.post-text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 460px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.post-image-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.post-image-trigger:focus-visible,
+.comment-image-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.post-image-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 4.5rem 1rem 1rem;
+  background: rgba(0, 0, 0, .88);
+}
+
+.post-image-viewer-content {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-image-viewer-image {
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  transform-origin: center;
+  transition: transform .15s ease;
+}
+
+.post-image-viewer-controls {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .4rem;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, .85);
+  color: #fff;
+}
+
+.post-image-viewer-controls button {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.post-image-viewer-controls button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, .15);
+}
+
+.post-image-viewer-controls button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.post-image-viewer-controls span {
+  min-width: 3.5rem;
+  text-align: center;
+  font-size: .875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: .6rem;
+}
+
+.like {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font: inherit;
+  font-weight: 600;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  padding: .2rem .4rem;
+  border-radius: 6px;
+}
+
+.like:hover {
+  background: #f1f4f8;
+}
+
+.like.liked {
+  color: var(--like);
+}
+
+.comments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: .6rem;
+}
+
+.comment {
+  display: flex;
+  gap: .55rem;
+}
+
+.bubble {
+  background: #f1c7cc;
+  border-radius: 10px;
+  padding: .45rem .7rem;
+  min-width: 0;
+}
+
+.bubble p {
+  margin: .1rem 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.comment-head {
+  display: flex;
+  gap: .5rem;
+  align-items: baseline;
+  font-size: .85rem;
+}
+
+.comment-actions {
+  display: flex;
+  gap: .15rem;
+  margin-left: auto;
+}
+
+.comment-actions .btn {
+  font-size: .8rem;
+}
+
+.comment-edit-form {
+  display: grid;
+  gap: .5rem;
+  margin-top: .5rem;
+}
+
+.comment-image {
+  max-width: 220px;
+  max-height: 180px;
+  border-radius: 8px;
+  margin-top: .4rem;
+  display: block;
+}
+
+.comment-image-trigger {
+  display: block;
+  max-width: 100%;
+  margin: .4rem 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  cursor: zoom-in;
+}
+
+.comment-image-trigger .comment-image {
+  margin-top: 0;
+}
+
+.comment-form {
+  display: grid;
+  gap: .5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn,
+  .like {
+    transition: background .15s;
+  }
+}

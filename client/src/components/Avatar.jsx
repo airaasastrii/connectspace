@@ -1,3 +1,4 @@
+// Menampilkan avatar pengguna atau inisial sebagai pengganti jika avatar tidak tersedia.
 export default function Avatar({ user, size = 40 }) {
   const style = { width: size, height: size, fontSize: size * 0.42 };
   return user?.avatar ? (
@@ -9,5 +10,6 @@ export default function Avatar({ user, size = 40 }) {
   );
 }
 
+// Mengubah waktu menjadi format tanggal dan jam lokal berbahasa Indonesia.
 export const formatTime = (s) =>
   new Date(s).toLocaleString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });

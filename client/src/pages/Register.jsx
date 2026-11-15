@@ -3,14 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../api.js';
 import { useAuth } from '../AuthContext.jsx';
 
+// Menampilkan formulir pendaftaran dan membuat sesi pengguna baru.
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '', password_confirmation: '' });
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const { setUser } = useAuth();
   const navigate = useNavigate();
+  // Membuat handler input untuk memperbarui field pendaftaran yang dipilih.
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
+  // Memvalidasi data pendaftaran lalu mengirimnya ke server.
   const submit = async (e) => {
     e.preventDefault();
     setError('');

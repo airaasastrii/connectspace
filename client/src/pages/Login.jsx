@@ -4,6 +4,7 @@ import { api } from '../api.js';
 import { useAuth } from '../AuthContext.jsx';
 import logoApp from '../assets/logo.png';
 
+// Menampilkan formulir login dan memproses autentikasi pengguna.
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
@@ -12,8 +13,10 @@ export default function Login() {
   const navigate = useNavigate();
   const warning = useLocation().state?.warning;
 
+  // Membuat handler input untuk memperbarui field formulir yang dipilih.
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
+  // Mengirim kredensial, memperbarui konteks, dan membuka beranda.
   const submit = async (e) => {
     e.preventDefault();
     setBusy(true);

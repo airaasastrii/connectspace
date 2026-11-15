@@ -18,6 +18,7 @@ model User {
   posts     Post[]
   likes     Like[]
   comments  Comment[]
+  commentLikes CommentLike[]
 
   @@map("users")
 }
@@ -27,6 +28,9 @@ model Post {
   userId    Int       @map("user_id")
   content   String?   @db.Text
   image     String?   @db.VarChar(255)
+  latitude  Float?    @db.Double
+  longitude Float?    @db.Double
+  locationName String? @db.VarChar(255) @map("location_name")
   createdAt DateTime  @default(now()) @db.Timestamp(0) @map("created_at")
   updatedAt DateTime? @updatedAt @db.Timestamp(0) @map("updated_at")
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -55,13 +59,34 @@ model Comment {
   id        Int      @id @default(autoincrement())
   postId    Int      @map("post_id")
   userId    Int      @map("user_id")
+  parentId  Int?     @map("parent_id")
   comment   String?  @db.Text
   image     String?  @db.VarChar(255)
+  latitude  Float?   @db.Double
+  longitude Float?  @db.Double
+  locationName String? @db.VarChar(255) @map("location_name")
   createdAt DateTime @default(now()) @db.Timestamp(0) @map("created_at")
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[] @relation("CommentReplies")
+  likes     CommentLike[]
 
   @@index([postId])
   @@index([userId])
+  @@index([parentId])
   @@map("comments")
+}
+
+model CommentLike {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  commentId Int      @map("comment_id")
+  createdAt DateTime @default(now()) @db.Timestamp(0) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, commentId])
+  @@index([commentId])
+  @@map("comment_likes")
 }

@@ -1,13 +1,25 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import { prisma } from '../prisma.js';
-import { upload, pickImage, removeLocal, httpError } from '../helpers.js';
+import { upload, pickImage, removeLocal, httpError, toId } from '../helpers.js';
 import { validate, profileSchema, passwordSchema } from '../validators.js';
 import { getUser, publicSelect } from './auth.js';
 
 const router = Router();
 
+// Mengembalikan informasi publik profil tanpa membocorkan email atau data sensitif.
+router.get('/:id', async (req, res) => {
+  const id = toId(req.params.id);
+  const user = await prisma.user.findUnique({
+    where: { id },
+    select: { id: true, name: true, avatar: true, bio: true, createdAt: true },
+  });
+  if (!user) throw httpError(404, 'Profil tidak ditemukan.');
+  res.json({ user });
+});
+
 // Ubah nama, bio, dan foto profil (upload file ATAU URL)
+// Menyimpan perubahan profil dan membersihkan avatar lokal yang sudah diganti.
 router.put('/', upload.single('avatar'), validate(profileSchema), async (req, res) => {
   const uid = req.session.userId;
   const { name, bio } = req.body;
@@ -24,6 +36,7 @@ router.put('/', upload.single('avatar'), validate(profileSchema), async (req, re
 });
 
 // Ubah password: wajib verifikasi password lama
+// Memeriksa kata sandi lama sebelum menyimpan hash kata sandi baru.
 router.put('/password', validate(passwordSchema), async (req, res) => {
   const { old_password, new_password } = req.body;
   const me = await prisma.user.findUnique({ where: { id: req.session.userId }, select: { password: true } });

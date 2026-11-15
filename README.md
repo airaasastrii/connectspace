@@ -11,6 +11,12 @@ Stack: React (Vite) + Node.js/Express + Prisma (ORM) + Joi (validasi) + MySQL.
    - Deploy/produksi: `npm run db:deploy` (hanya menerapkan migrasi)
 3. Frontend: `cd client && npm install && npm run dev`  -> buka http://localhost:5173
 
+## Lokasi pada status dan komentar
+- Saat pengguna membuat status, komentar, atau balasan, aplikasi meminta lokasi browser dan memakai Nominatim untuk menampilkan nama wilayah. Lokasi dan koordinat disimpan bersama konten.
+- Nominatim dipanggil hanya saat pengguna mengirim konten, dibatasi maksimal 1 permintaan per detik per backend, dan hasil lookup disimpan dalam cache sementara. Nama wilayah menaut ke peta dan mencantumkan atribusi OpenStreetMap.
+- Endpoint dapat diganti tanpa perubahan kode melalui `NOMINATIM_BASE_URL` di `server/.env` (default: `https://nominatim.openstreetmap.org/reverse`). Ikuti [kebijakan penggunaan Nominatim](https://operations.osmfoundation.org/policies/nominatim/); untuk trafik tinggi atau layanan komersial, gunakan instance/provider yang sesuai.
+- Setelah perubahan lokasi, hentikan backend lalu jalankan `npx prisma generate` dan `npm run db:deploy` dari folder `server`.
+
 ## Pemetaan ke rubrik
 | Rubrik | Lokasi |
 |---|---|

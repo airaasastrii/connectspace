@@ -24,12 +24,17 @@ app.use(
   })
 );
 
-app.use('/uploads', express.static(uploadDir, { setHeaders: (r) => r.setHeader('X-Content-Type-Options', 'nosniff') }));
+app.use('/uploads', express.static(uploadDir, {
+  // Menambahkan header agar browser tidak menebak tipe konten file unggahan.
+  setHeaders: (r) => r.setHeader('X-Content-Type-Options', 'nosniff'),
+}));
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', requireAuth, profileRoutes); // Auth Guard
 app.use('/api/posts', requireAuth, postRoutes);      // Auth Guard
 
+// Mengirim respons JSON untuk endpoint yang tidak tersedia.
 app.use((_req, res) => res.status(404).json({ message: 'Endpoint tidak ditemukan.' }));
+// Mengubah error aplikasi dan unggahan menjadi respons HTTP yang konsisten.
 app.use((err, _req, res, _next) => {
   if (err instanceof multer.MulterError) {
     const msg = err.code === 'LIMIT_FILE_SIZE' ? 'Ukuran gambar maksimal 2 MB.' : 'Upload gagal.';
@@ -41,4 +46,5 @@ app.use((err, _req, res, _next) => {
 });
 
 const port = process.env.PORT || 5000;
+// Menjalankan server API pada port konfigurasi atau port bawaan.
 app.listen(port, () => console.log(`API ConnectSpace berjalan di http://localhost:${port}`));

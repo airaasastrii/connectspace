@@ -15,6 +15,7 @@ const messages = {
 
 // Middleware: validasi req.body dengan Joi. Jika gagal, file yang sudah terunggah ikut dihapus.
 // `has_file` memberi tahu schema apakah ada file upload (multer) pada request.
+// Membuat middleware validasi untuk schema Joi dan meneruskan error ke Express.
 export const validate = (schema) => (req, _res, next) => {
   const { error, value } = schema.validate(
     { ...(req.body ?? {}), has_file: !!req.file },
@@ -56,12 +57,15 @@ export const passwordSchema = Joi.object({
   new_password_confirmation: Joi.any().valid(Joi.ref('new_password')).required().label('Konfirmasi password baru'),
 });
 
+// Memastikan setidaknya satu field teks atau gambar tersedia pada formulir.
 const needTextOrImage = (msg, field) => (v, h) =>
   v[field] || v.image_url || v.has_file ? v : h.message(msg);
 
 export const postSchema = Joi.object({
   content: Joi.string().trim().max(2000).allow('').label('Status'),
   image_url: imageUrl,
+  latitude: Joi.number().min(-90).max(90).required().label('Latitude lokasi'),
+  longitude: Joi.number().min(-180).max(180).required().label('Longitude lokasi'),
   has_file: Joi.boolean(),
 }).custom(needTextOrImage('Status tidak boleh kosong: isi teks atau lampirkan gambar.', 'content'));
 
@@ -75,6 +79,9 @@ export const editPostSchema = Joi.object({
 export const commentSchema = Joi.object({
   comment: Joi.string().trim().max(1000).allow('').label('Komentar'),
   image_url: imageUrl,
+  parent_id: Joi.number().integer().min(1).optional().label('ID komentar induk'),
+  latitude: Joi.number().min(-90).max(90).required().label('Latitude lokasi'),
+  longitude: Joi.number().min(-180).max(180).required().label('Longitude lokasi'),
   has_file: Joi.boolean(),
 }).custom(needTextOrImage('Komentar tidak boleh kosong.', 'comment'));
 
@@ -84,6 +91,7 @@ export const editCommentSchema = Joi.object({
   keep_image: Joi.boolean(),
   has_file: Joi.boolean(),
 }).custom((v, h) =>
+  // Menolak komentar edit yang tidak menyisakan teks maupun gambar.
   v.comment || v.image_url || v.has_file || v.keep_image
     ? v
     : h.message('Komentar tidak boleh kosong.')

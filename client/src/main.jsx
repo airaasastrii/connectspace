@@ -5,6 +5,7 @@ import { AuthProvider } from './AuthContext.jsx';
 import App from './App.jsx';
 import './index.css';
 
+// Memasang aplikasi React beserta router dan penyedia konteks autentikasi.
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>

@@ -3,6 +3,8 @@ import { api, toForm } from '../api.js';
 import { useAuth } from '../AuthContext.jsx';
 import ImageInput, { emptyImage } from '../components/ImageInput.jsx';
 
+// INI BUAT BAGIAN PROFIL USER, BISA NGEDIT NAMA, BIO, AVATAR, DAN PASSWORD
+// Menampilkan dan mengelola informasi profil serta kata sandi pengguna.
 export default function Profile() {
   const { user, setUser } = useAuth();
   const [name, setName] = useState(user.name);
@@ -13,6 +15,7 @@ export default function Profile() {
   const [pw, setPw] = useState({ old_password: '', new_password: '', new_password_confirmation: '' });
   const [wMsg, setWMsg] = useState(null);
 
+  // Menyimpan nama, bio, dan avatar profil ke server.
   const saveProfile = async (e) => {
     e.preventDefault();
     setPMsg(null);
@@ -24,6 +27,7 @@ export default function Profile() {
     } catch (err) { setPMsg({ ok: false, text: err.message }); }
   };
 
+  // Memvalidasi dan menyimpan kata sandi baru.
   const savePassword = async (e) => {
     e.preventDefault();
     setWMsg(null);
@@ -33,6 +37,7 @@ export default function Profile() {
       setWMsg({ ok: true, text: r.message });
     } catch (err) { setWMsg({ ok: false, text: err.message }); }
   };
+  // Membuat handler untuk memperbarui field kata sandi yang dipilih.
   const setP = (k) => (e) => setPw({ ...pw, [k]: e.target.value });
 
   return (

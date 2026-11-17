@@ -33,8 +33,9 @@ export default function Login() {
     <div className="login-layout">
       <div className="login-panel">
         <div className="login-brand">
+          {/* ini untuk logo medsos di login */}
           <img src={logoApp} alt="Logo DailyoOoo" className="auth-logo" />
-          <h1>DailyoOoo</h1>
+          <h1>DailyoOoo</h1>  
         </div>
         <form className="card auth-card" onSubmit={submit}>
           <h2>Masuk</h2>

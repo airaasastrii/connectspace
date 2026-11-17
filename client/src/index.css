@@ -1,18 +1,18 @@
 :root {
-  --bg: #feecef;
+  --bg: #f7eded;
   /* background */
-  --surface: #ffeeee;
+  --surface: #fffcfcae;
   /* untuk yang di kolom dalem nya itu */
-  --ink: #310505d2;
-  /* untuk tombol unggah dan teks username */
+  --ink: #5d2a2ad2;
+  /* untuk tombol unggah dan teks username serta untuk yang di regis sebelah kiri */
   --muted: #331b1e;
   /* untuk warna teks tanggal bulan tahun dll */
-  --line: #360410;
+  --line: #f7d0da;
   /* garis dari isian konten nya */
   --accent: #d37181;
   /* botton (tombol) posting yg awal */
-  --accent-dark: #e6d53d;
-  /* tombol posting yg kalo di arahin */
+  --accent-dark: #dfc430;
+  /* tombol posting yg kalo di arahin (hover)*/
   --like: #d6405a;
   /* warna icon like */
   --danger: #b3261e;
@@ -111,7 +111,7 @@ textarea {
   padding: .6rem .75rem;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #f5c9c9;
+  background: #f5efef;
   /* bagian kolom nya, komentar atau pas input email */
 }
 
@@ -307,7 +307,7 @@ label,
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  background-color: #ec6280ce;
+  background-color: #ffffffce;
 }
 
 .navbar-inner { 
@@ -319,11 +319,12 @@ label,
   box-sizing: border-box;
 }
 
+/* ini untuk font atau teks yang ada di navbar bagian logo */
 .brand {
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: #ffffff;
+    gap: 1px;
+    color: #624040;
     font-weight: bold;
     font-size: 1.25rem;
     text-decoration: none;
@@ -340,12 +341,13 @@ label,
   gap: 1.5rem; 
 }
 
-/* untuk bagian warna teks PROFIL */
+/* untuk bagian pas profil atau masuk ke dalam nya itu di bagian navbar BERANDA nya ada warnanya */
 .nav-links a {
   display: inline-flex;
   align-items: center;
   gap: .45rem;
-  color: #ffffff;
+  color: #624040;
+  background: rgba(250, 223, 226, 0.893);  
   text-decoration: none;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
@@ -354,8 +356,8 @@ label,
 
 /* untuk bagian warna teks BERANDA */
 .nav-links a.active {
-  color: #fff;
-  background: rgba(255, 149, 158, 0.459); 
+  color: #624040;
+  background: rgba(250, 223, 226, 0.893); 
   /* background untuk luar-annya*/
 }
 
@@ -363,7 +365,7 @@ label,
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: #ffffff;
+  color: #624040;
 }
 
 /* Styling untuk tombol icon keluar (logout) agar berwarna putih */
@@ -385,9 +387,10 @@ label,
 }
 
 .logout-btn svg {
-  stroke: #ffffff; /* Memastikan warna garis icon-nya putih */
+  stroke: #624040; /* Memastikan warna garis icon-nya warna gelap */
 }
 
+/* ini untuk bagian pas cursor di arahin ke logout nya */
 .logout-btn:hover svg {
   stroke: #e6d53d; /* Berubah jadi warna lain saat di-hover */
 }
@@ -479,10 +482,14 @@ label,
   font-weight: 800;
 }
 
+/* untuk bagian REGISTER */
 .auth-wrap {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-content: center;
+  /* ngukur jarak kolom regis nya agar ke tengah */
+  margin-left: 650px;
 }
 
 .auth-side {
@@ -493,21 +500,10 @@ label,
   padding: 3rem;
 }
 
-.auth-side h1 {
-  font-size: 2.6rem;
-  font-weight: 800;
-}
-
-.auth-side p {
-  color: #b9c6da;
-  max-width: 28ch;
-  font-size: 1.05rem;
-}
-
 .auth-card {
   align-self: center;
   justify-self: center;
-  width: min(400px, 92%);
+  width: min(400px, 95%);
   display: grid;
   gap: .9rem;
 }
@@ -520,15 +516,18 @@ label,
 }
 
 .login-panel {
+  /* width untuk ukuran lebar kolom  */
   width: min(400px, 100%);
   display: grid;
-  gap: 1.25rem;
+  /* gap untuk jarak antara nama brand dan kolom login */
+  gap: 15px;
 }
 
+/* logo brand connectspace / dailyoOoo */
 .login-brand {
   display: grid;
   justify-items: center;
-  gap: .25rem;
+  gap: 1px;
   text-align: center;
 }
 
@@ -548,6 +547,7 @@ label,
 .login-panel .auth-card {
   width: 100%;
 }
+
 
 @media (max-width: 760px) {
   .auth-wrap {
@@ -941,9 +941,11 @@ time {
   margin-left: 2.25rem;
 }
 
+/* warna kolom komentar nya KOLOM KOMENTAR */
 .bubble {
-  background: #f1c7cc;
-  border-radius: 10px;
+  background: #f7dcdf;
+  /* border radius untuk sisi di kolom  */
+  border-radius: 15px;
   padding: .45rem .7rem;
   width: auto;
   min-width: 0;
@@ -1028,7 +1030,7 @@ time {
 }
 
 .location-link {
-  margin-top: .25rem;
+  margin-top: 5px;
   text-decoration: none;
 }
 

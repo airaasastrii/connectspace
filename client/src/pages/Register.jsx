@@ -4,6 +4,7 @@ import { api } from '../api.js';
 import { useAuth } from '../AuthContext.jsx';
 
 // Menampilkan formulir pendaftaran dan membuat sesi pengguna baru.
+// INI BAGIAN REGISTER NYA
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '', password_confirmation: '' });
   const [error, setError] = useState('');
@@ -33,10 +34,11 @@ export default function Register() {
 
   return (
     <div className="auth-wrap">
-      <div className="auth-side">
-        <h1>ConnectSpace</h1>
+      {/* ini buat yang bikin samping kiri di REGISTER */}
+      {/* <div className="auth-side">
+        <h1>DailyoOoo</h1>
         <p>Buat akun dan Anda langsung masuk ke beranda.</p>
-      </div>
+      </div> */}
       <form className="card auth-card" onSubmit={submit}>
         <h2>Daftar</h2>
         {error && <div className="alert error">{error}</div>}
